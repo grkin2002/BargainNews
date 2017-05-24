@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HaoPianYiEntities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="HaoPianYiEntitiesStoreContainer">
+          <EntitySet Name="BookMarkSet" EntityType="HaoPianYiEntities.Store.BookMarkSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CategorySet" EntityType="HaoPianYiEntities.Store.CategorySet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FlyerSet" EntityType="HaoPianYiEntities.Store.FlyerSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MerchantSet" EntityType="HaoPianYiEntities.Store.MerchantSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PromoteSet" EntityType="HaoPianYiEntities.Store.PromoteSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ReviewSet" EntityType="HaoPianYiEntities.Store.ReviewSet" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_CategoryFlyer" Association="HaoPianYiEntities.Store.FK_CategoryFlyer">
+            <End Role="CategorySet" EntitySet="CategorySet" />
+            <End Role="FlyerSet" EntitySet="FlyerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlyerMerchant" Association="HaoPianYiEntities.Store.FK_FlyerMerchant">
+            <End Role="MerchantSet" EntitySet="MerchantSet" />
+            <End Role="FlyerSet" EntitySet="FlyerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FlyerReview" Association="HaoPianYiEntities.Store.FK_FlyerReview">
+            <End Role="FlyerSet" EntitySet="FlyerSet" />
+            <End Role="ReviewSet" EntitySet="ReviewSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromoteFlyer" Association="HaoPianYiEntities.Store.FK_PromoteFlyer">
+            <End Role="PromoteSet" EntitySet="PromoteSet" />
+            <End Role="FlyerSet" EntitySet="FlyerSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookMarkSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FlyerId" Type="bigint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="CategorySet">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="FlyerSet">
+          <Key>
+            <PropertyRef Name="flyerId" />
+          </Key>
+          <Property Name="flyerId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="smallint" Nullable="false" />
+          <Property Name="PromoteId" Type="int" Nullable="false" />
+          <Property Name="MerchantId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="HistoryId" Type="bigint" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="PostedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpireDate" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="decimal" />
+          <Property Name="Discount" Type="smallint" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="SendUrl" Type="nvarchar" Nullable="false" MaxLength="1000" />
+          <Property Name="ClickCount" Type="int" Nullable="false" />
+          <Property Name="ViewCount" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="ImgUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Valid" Type="bit" Nullable="false" />
+          <Property Name="Categories_CategoryId" Type="int" />
+          <Property Name="Merchants_MerchantId" Type="int" Nullable="false" />
+          <Property Name="Promotes_PromoteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MerchantSet">
+          <Key>
+            <PropertyRef Name="MerchantId" />
+          </Key>
+          <Property Name="MerchantId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MerchantName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="MerchantData" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MerchantPhotoUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="MerchantEnglish" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PromoteSet">
+          <Key>
+            <PropertyRef Name="PromoteId" />
+          </Key>
+          <Property Name="PromoteId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PromoteCode" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="PromoteDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" Nullable="false" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="ReviewSet">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Name="ReviewId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FlyerId" Type="bigint" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReviewDate" Type="datetime" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" Nullable="false" />
+          <Property Name="Flyer_flyerId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CategoryFlyer">
+          <End Role="CategorySet" Type="HaoPianYiEntities.Store.CategorySet" Multiplicity="0..1" />
+          <End Role="FlyerSet" Type="HaoPianYiEntities.Store.FlyerSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategorySet">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="FlyerSet">
+              <PropertyRef Name="Categories_CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlyerMerchant">
+          <End Role="MerchantSet" Type="HaoPianYiEntities.Store.MerchantSet" Multiplicity="1" />
+          <End Role="FlyerSet" Type="HaoPianYiEntities.Store.FlyerSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MerchantSet">
+              <PropertyRef Name="MerchantId" />
+            </Principal>
+            <Dependent Role="FlyerSet">
+              <PropertyRef Name="Merchants_MerchantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FlyerReview">
+          <End Role="FlyerSet" Type="HaoPianYiEntities.Store.FlyerSet" Multiplicity="1" />
+          <End Role="ReviewSet" Type="HaoPianYiEntities.Store.ReviewSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FlyerSet">
+              <PropertyRef Name="flyerId" />
+            </Principal>
+            <Dependent Role="ReviewSet">
+              <PropertyRef Name="Flyer_flyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromoteFlyer">
+          <End Role="PromoteSet" Type="HaoPianYiEntities.Store.PromoteSet" Multiplicity="1" />
+          <End Role="FlyerSet" Type="HaoPianYiEntities.Store.FlyerSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromoteSet">
+              <PropertyRef Name="PromoteId" />
+            </Principal>
+            <Dependent Role="FlyerSet">
+              <PropertyRef Name="Promotes_PromoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="HaoPianYiEntities" Alias="Self" >
+        <EntityContainer Name="HaoPianYiEntitiesContainer" >
+          <EntitySet Name="BookMarkSet" EntityType="HaoPianYiEntities.BookMark" />
+          <EntitySet Name="CategorySet" EntityType="HaoPianYiEntities.Category" />
+          <EntitySet Name="ReviewSet" EntityType="HaoPianYiEntities.Review" />
+          <EntitySet Name="FlyerSet" EntityType="HaoPianYiEntities.Flyer" />
+          <AssociationSet Name="CategoryFlyer" Association="HaoPianYiEntities.CategoryFlyer">
+            <End Role="Category" EntitySet="CategorySet" />
+            <End Role="Flyer" EntitySet="FlyerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FlyerReview" Association="HaoPianYiEntities.FlyerReview">
+            <End Role="Flyer" EntitySet="FlyerSet" />
+            <End Role="Review" EntitySet="ReviewSet" />
+          </AssociationSet>
+          <EntitySet Name="PromoteSet" EntityType="HaoPianYiEntities.Promote" />
+          <EntitySet Name="MerchantSet" EntityType="HaoPianYiEntities.Merchant" />
+          <AssociationSet Name="FlyerMerchant" Association="HaoPianYiEntities.FlyerMerchant">
+            <End Role="Flyer" EntitySet="FlyerSet" />
+            <End Role="Merchant" EntitySet="MerchantSet" />
+          </AssociationSet>
+          <AssociationSet Name="PromoteFlyer" Association="HaoPianYiEntities.PromoteFlyer">
+            <End Role="Promote" EntitySet="PromoteSet" />
+            <End Role="Flyer" EntitySet="FlyerSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookMark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" a:StoreGeneratedPattern="None" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" ConcurrencyMode="None" />
+          <Property Type="Int64" Name="FlyerId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Type="Int32" Name="CategoryId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="200" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="2000" Unicode="true" />
+          <NavigationProperty Name="Flyers" Relationship="HaoPianYiEntities.CategoryFlyer" FromRole="Category" ToRole="Flyer" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewId" />
+          </Key>
+          <Property Type="Int32" Name="ReviewId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int64" Name="FlyerId" Nullable="false" />
+          <Property Type="Guid" Name="UserID" Nullable="false" ConcurrencyMode="None" />
+          <Property Type="DateTime" Name="ReviewDate" Nullable="false" a:StoreGeneratedPattern="None" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="4000" Unicode="true" />
+          <NavigationProperty Name="Flyer" Relationship="HaoPianYiEntities.FlyerReview" FromRole="Review" ToRole="Flyer" />
+        </EntityType>
+        <EntityType Name="Flyer">
+          <Key>
+            <PropertyRef Name="flyerId" />
+          </Key>
+          <Property Type="Int64" Name="flyerId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int16" Name="Type" Nullable="false" />
+          <Property Type="Int32" Name="PromoteId" Nullable="false" />
+          <Property Type="Int32" Name="MerchantId" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" Unicode="true" MaxLength="400" />
+          <Property Type="Int64" Name="HistoryId" Nullable="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" a:StoreGeneratedPattern="None" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Guid" Name="PostedBy" Nullable="false" />
+          <Property Type="DateTime" Name="ExpireDate" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="true" />
+          <Property Type="Int16" Name="Discount" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="4000" Unicode="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="SendUrl" Unicode="true" MaxLength="1000" Nullable="false" />
+          <Property Type="Int32" Name="ClickCount" DefaultValue="0" Nullable="false" />
+          <Property Type="Int32" Name="ViewCount" DefaultValue="0" Nullable="false" />
+          <Property Type="Int16" Name="Status" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="Category" Relationship="HaoPianYiEntities.CategoryFlyer" FromRole="Flyer" ToRole="Category" />
+          <NavigationProperty Name="Reviews" Relationship="HaoPianYiEntities.FlyerReview" FromRole="Flyer" ToRole="Review" />
+          <Property Type="String" Name="ImgUrl" MaxLength="1000" Unicode="true" />
+          <Property Type="Boolean" Name="Valid" Nullable="false" DefaultValue="false" />
+          <NavigationProperty Name="Merchant" Relationship="HaoPianYiEntities.FlyerMerchant" FromRole="Flyer" ToRole="Merchant" />
+          <NavigationProperty Name="Promote" Relationship="HaoPianYiEntities.PromoteFlyer" FromRole="Flyer" ToRole="Promote" />
+        </EntityType>
+        <Association Name="CategoryFlyer">
+          <End Type="HaoPianYiEntities.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="HaoPianYiEntities.Flyer" Role="Flyer" Multiplicity="*" />
+        </Association>
+        <Association Name="FlyerReview">
+          <End Type="HaoPianYiEntities.Flyer" Role="Flyer" Multiplicity="1" />
+          <End Type="HaoPianYiEntities.Review" Role="Review" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Promote">
+          <Key>
+            <PropertyRef Name="PromoteId" />
+          </Key>
+          <Property Type="Int32" Name="PromoteId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="PromoteCode" Nullable="false" MaxLength="200" Unicode="true" />
+          <Property Type="String" Name="PromoteDescription" Nullable="false" MaxLength="Max" Unicode="true" />
+          <Property Type="String" Name="URL" Nullable="false" MaxLength="1000" Unicode="true" />
+          <NavigationProperty Name="Flyer" Relationship="HaoPianYiEntities.PromoteFlyer" FromRole="Promote" ToRole="Flyer" />
+        </EntityType>
+        <EntityType Name="Merchant">
+          <Key>
+            <PropertyRef Name="MerchantId" />
+          </Key>
+          <Property Type="Int32" Name="MerchantId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="MerchantName" Nullable="false" MaxLength="200" Unicode="true" />
+          <Property Type="String" Name="MerchantData" Nullable="false" MaxLength="Max" Unicode="true" />
+          <NavigationProperty Name="Flyer" Relationship="HaoPianYiEntities.FlyerMerchant" FromRole="Merchant" ToRole="Flyer" />
+          <Property Type="String" Name="MerchantPhotoUrl" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MerchantEnglish" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FlyerMerchant">
+          <End Type="HaoPianYiEntities.Flyer" Role="Flyer" Multiplicity="*" />
+          <End Type="HaoPianYiEntities.Merchant" Role="Merchant" Multiplicity="1" />
+        </Association>
+        <Association Name="PromoteFlyer">
+          <End Type="HaoPianYiEntities.Promote" Role="Promote" Multiplicity="1" />
+          <End Type="HaoPianYiEntities.Flyer" Role="Flyer" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+  <EntityContainerMapping StorageEntityContainer="HaoPianYiEntitiesStoreContainer" CdmEntityContainer="HaoPianYiEntitiesContainer">
+    <EntitySetMapping Name="BookMarkSet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.BookMark)">
+        <MappingFragment StoreEntitySet="BookMarkSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FlyerId" ColumnName="FlyerId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategorySet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.Category)">
+        <MappingFragment StoreEntitySet="CategorySet">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewSet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.Review)">
+        <MappingFragment StoreEntitySet="ReviewSet">
+          <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+          <ScalarProperty Name="FlyerId" ColumnName="FlyerId" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FlyerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.Flyer)">
+        <MappingFragment StoreEntitySet="FlyerSet">
+          <ScalarProperty Name="flyerId" ColumnName="flyerId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="PromoteId" ColumnName="PromoteId" />
+          <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+          <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="SendUrl" ColumnName="SendUrl" />
+          <ScalarProperty Name="ClickCount" ColumnName="ClickCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+          <ScalarProperty Name="Valid" ColumnName="Valid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PromoteSet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.Promote)">
+        <MappingFragment StoreEntitySet="PromoteSet">
+          <ScalarProperty Name="PromoteId" ColumnName="PromoteId" />
+          <ScalarProperty Name="PromoteCode" ColumnName="PromoteCode" />
+          <ScalarProperty Name="PromoteDescription" ColumnName="PromoteDescription" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MerchantSet">
+      <EntityTypeMapping TypeName="IsTypeOf(HaoPianYiEntities.Merchant)">
+        <MappingFragment StoreEntitySet="MerchantSet">
+          <ScalarProperty Name="MerchantEnglish" ColumnName="MerchantEnglish" />
+                <ScalarProperty Name="MerchantPhotoUrl" ColumnName="MerchantPhotoUrl" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+          <ScalarProperty Name="MerchantName" ColumnName="MerchantName" />
+          <ScalarProperty Name="MerchantData" ColumnName="MerchantData" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CategoryFlyer" TypeName="HaoPianYiEntities.CategoryFlyer" StoreEntitySet="FlyerSet">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="CategoryId" ColumnName="Categories_CategoryId" />
+      </EndProperty>
+      <EndProperty Name="Flyer">
+        <ScalarProperty Name="flyerId" ColumnName="flyerId" />
+      </EndProperty>
+      <Condition ColumnName="Categories_CategoryId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FlyerReview" TypeName="HaoPianYiEntities.FlyerReview" StoreEntitySet="ReviewSet">
+      <EndProperty Name="Flyer">
+        <ScalarProperty Name="flyerId" ColumnName="Flyer_flyerId" />
+      </EndProperty>
+      <EndProperty Name="Review">
+        <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FlyerMerchant" TypeName="HaoPianYiEntities.FlyerMerchant" StoreEntitySet="FlyerSet">
+      <EndProperty Name="Merchant">
+        <ScalarProperty Name="MerchantId" ColumnName="Merchants_MerchantId" />
+      </EndProperty>
+      <EndProperty Name="Flyer">
+        <ScalarProperty Name="flyerId" ColumnName="flyerId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PromoteFlyer" TypeName="HaoPianYiEntities.PromoteFlyer" StoreEntitySet="FlyerSet">
+      <EndProperty Name="Promote">
+        <ScalarProperty Name="PromoteId" ColumnName="Promotes_PromoteId" />
+      </EndProperty>
+      <EndProperty Name="Flyer">
+        <ScalarProperty Name="flyerId" ColumnName="flyerId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="HaoPianYiEntities" DisplayType="true" ZoomLevel="73" >
+        <EntityTypeShape EntityType="HaoPianYiEntities.BookMark" Width="2" PointX="0.5" PointY="0.5" Height="1.779012858072917" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaoPianYiEntities.Category" Width="1.875" PointX="3" PointY="0.5" Height="1.5879931640625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaoPianYiEntities.Review" Width="1.5" PointX="3" PointY="2.625" Height="1.9700325520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaoPianYiEntities.Flyer" Width="2.375" PointX="6" PointY="0.5" Height="5.0263476562499987" />
+        <AssociationConnector Association="HaoPianYiEntities.CategoryFlyer">
+          <ConnectorPoint PointX="4.875" PointY="1.3895064290364585" />
+          <ConnectorPoint PointX="6" PointY="1.3895064290364585" />
+        </AssociationConnector>
+        <AssociationConnector Association="HaoPianYiEntities.FlyerReview">
+          <ConnectorPoint PointX="6" PointY="3.7055261230468748" />
+          <ConnectorPoint PointX="4.5" PointY="3.7055261230468748" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="HaoPianYiEntities.Promote" Width="1.5" PointX="9.25" PointY="0.5" Height="1.779012858072917" />
+        <EntityTypeShape EntityType="HaoPianYiEntities.Merchant" Width="2.5" PointX="9.25" PointY="2.75" Height="1.7790128580729165" />
+        <AssociationConnector Association="HaoPianYiEntities.FlyerMerchant">
+          <ConnectorPoint PointX="8.375" PointY="3.6395064290364583" />
+          <ConnectorPoint PointX="9.25" PointY="3.6395064290364583" />
+        </AssociationConnector>
+        <AssociationConnector Association="HaoPianYiEntities.PromoteFlyer">
+          <ConnectorPoint PointX="9.25" PointY="1.4850162760416668" />
+          <ConnectorPoint PointX="8.375" PointY="1.4850162760416668" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
